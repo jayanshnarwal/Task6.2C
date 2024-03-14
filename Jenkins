@@ -1,1 +1,53 @@
+pipeline {
+    agent any
 
+    environment {
+        DIRECTORY_PATH = 'C:/Users/jayansh/SIT223/5.1P'
+        TESTING_ENVIRONMENT = 'jayansh'
+        PRODUCTION_ENVIRONMENT = 'narwal'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo "Fetching the source code from the directory path specified by the environment variable: ${env.DIRECTORY_PATH}"
+                echo "Compiling the code and generating any necessary artifacts"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "Running unit tests"
+                echo "Running integration tests"
+            }
+        }
+
+        stage('Code Quality Check') {
+            steps {
+                echo "Checking the quality of the code"
+                // Add code quality tools or scripts here
+            }
+        }
+
+        stage('Deploy to Testing') {
+            steps {
+                echo "Deploying the application to the testing environment specified by the environment variable: ${env.TESTING_ENVIRONMENT}"
+                // Add deployment steps for testing environment
+            }
+        }
+
+        stage('Approval') {
+            steps {
+                echo "Waiting for approval..."
+                sleep 10
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                echo "Deploying the application to the production environment specified by the environment variable: ${env.PRODUCTION_ENVIRONMENT}"
+                // Add deployment steps for production environment
+            }
+        }
+    }
+}
